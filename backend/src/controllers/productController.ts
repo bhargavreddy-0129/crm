@@ -45,31 +45,44 @@ export async function getProducts(req: AuthenticatedRequest, res: Response) {
       where.category = category;
     }
 
-    const [allProducts, total] = await Promise.all([
+    if (lowStockOnly) {
+      const allProducts = await prisma.product.findMany({
+        where,
+        orderBy: { updatedAt: 'desc' },
+      });
+      const filtered = allProducts.filter((p) => p.currentStock <= p.minStockAlert);
+      const paginated = filtered.slice(skip, skip + limit);
+
+      return res.json({
+        success: true,
+        data: paginated,
+        pagination: {
+          total: filtered.length,
+          page,
+          limit,
+          totalPages: Math.ceil(filtered.length / limit),
+        },
+      });
+    }
+
+    const [products, total] = await Promise.all([
       prisma.product.findMany({
         where,
+        skip,
+        take: limit,
         orderBy: { updatedAt: 'desc' },
       }),
       prisma.product.count({ where }),
     ]);
 
-    // Apply low stock filter if requested
-    let filteredProducts = allProducts;
-    if (lowStockOnly) {
-      filteredProducts = allProducts.filter((p) => p.currentStock <= p.minStockAlert);
-    }
-
-    // Paginate manually if filtered, else sliced
-    const paginatedProducts = filteredProducts.slice(skip, skip + limit);
-
     return res.json({
       success: true,
-      data: paginatedProducts,
+      data: products,
       pagination: {
-        total: filteredProducts.length,
+        total,
         page,
         limit,
-        totalPages: Math.ceil(filteredProducts.length / limit),
+        totalPages: Math.ceil(total / limit),
       },
     });
   } catch (error) {

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Rounded Shield -->
+  <rect x="16" y="16" width="480" height="480" rx="100" fill="url(#bgGrad)" />
+
+  <!-- Outer Glowing Ring -->
+  <rect x="32" y="32" width="448" height="448" rx="84" fill="none" stroke="#6366F1" stroke-width="12" stroke-opacity="0.5" />
+
+  <!-- 3D ERP Layer Cube Icon -->
+  <path d="M256 100 L380 170 L256 240 L132 170 Z" fill="url(#boxGrad)" opacity="0.95" />
+  <path d="M132 170 L256 240 L256 380 L132 310 Z" fill="#4338CA" />
+  <path d="M256 240 L380 170 L380 310 L256 380 Z" fill="#3730A3" />
+
+  <!-- Front Accent Pulse Node -->
+  <circle cx="256" cy="240" r="24" fill="url(#accentGrad)" />
+  <circle cx="256" cy="240" r="12" fill="#FFFFFF" />
+
+  <!-- Text ERP Label -->
+  <text x="256" y="445" font-family="'Jakarta Sans', 'Helvetica', 'Arial', sans-serif" font-weight="800" font-size="76" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">NEXUS</text>
+</svg>

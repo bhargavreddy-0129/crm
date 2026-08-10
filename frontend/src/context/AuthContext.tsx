@@ -15,20 +15,25 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
-    const savedUser = localStorage.getItem('user');
+    const savedUser = sessionStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
+
+  const [token, setToken] = useState<string | null>(() => sessionStorage.getItem('token'));
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Clear legacy localStorage token if present
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
     const checkAuth = async () => {
       if (token) {
         try {
           const res = await api.get('/auth/me');
           if (res.data.success) {
             setUser(res.data.user);
-            localStorage.setItem('user', JSON.stringify(res.data.user));
+            sessionStorage.setItem('user', JSON.stringify(res.data.user));
           }
         } catch (err) {
           console.error('Failed to verify token', err);
@@ -45,8 +50,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (res.data.success) {
       setToken(res.data.token);
       setUser(res.data.user);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+      sessionStorage.setItem('token', res.data.token);
+      sessionStorage.setItem('user', JSON.stringify(res.data.user));
     } else {
       throw new Error(res.data.message || 'Login failed');
     }
@@ -55,6 +60,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setUser(null);
     setToken(null);
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   };
