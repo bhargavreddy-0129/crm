@@ -1,5 +1,5 @@
-import React from 'react';
-import { Calendar, Shield, Briefcase, Package, Receipt } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar, Shield, Briefcase, Package, Receipt, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '../types';
 
@@ -10,6 +10,19 @@ interface TopbarProps {
 
 export const Topbar: React.FC<TopbarProps> = ({ title, subtitle }) => {
   const { user } = useAuth();
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   const todayFormatted = new Date().toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
@@ -61,18 +74,42 @@ export const Topbar: React.FC<TopbarProps> = ({ title, subtitle }) => {
         <p>{subtitle}</p>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '6px 12px',
+            borderRadius: '20px',
+            border: '1px solid var(--border-color)',
+            background: 'var(--bg-card)',
+            color: 'var(--text-primary)',
+            cursor: 'pointer',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            transition: 'all 0.2s ease',
+          }}
+        >
+          {theme === 'dark' ? <Sun size={15} color="#f59e0b" /> : <Moon size={15} color="#6366f1" />}
+          <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+        </button>
+
+        {/* Date Display */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
             fontSize: '0.85rem',
-            color: '#94a3b8',
-            background: 'rgba(30, 41, 59, 0.6)',
+            color: 'var(--text-secondary)',
+            background: 'var(--bg-card)',
             padding: '6px 14px',
             borderRadius: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-color)',
           }}
         >
           <Calendar size={14} />

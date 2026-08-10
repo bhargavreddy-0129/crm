@@ -366,9 +366,9 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.rect(32, 28, 32, 32).fill(accentIndigo);
     doc.fillColor('#FFFFFF').fontSize(11).font('Helvetica-Bold').text('ERP', 38, 39);
 
-    doc.fillColor('#FFFFFF').fontSize(10.5).font('Helvetica-Bold').text('NEXUS WHOLESALE & DISTRIBUTION', 72, 27, { width: 250, lineBreak: false });
+    doc.fillColor('#FFFFFF').fontSize(10.5).font('Helvetica-Bold').text('APEX WHOLESALE & DISTRIBUTION', 72, 27, { width: 250, lineBreak: false });
     doc.fontSize(7.5).font('Helvetica').fillColor('#94A3B8').text('Mini ERP & CRM Operations Portal | GSTIN: 27AAACN1234F1Z9', 72, 41, { width: 250, lineBreak: false });
-    doc.fontSize(7.5).fillColor('#CBD5E1').text('Toll Free: +91 1800 233 4455 | dispatch@nexusdistribution.com', 72, 53, { width: 250, lineBreak: false });
+    doc.fontSize(7.5).fillColor('#CBD5E1').text('Toll Free: +91 1800 233 4455 | dispatch@apexdistribution.com', 72, 53, { width: 250, lineBreak: false });
 
     doc.fillColor('#F59E0B').fontSize(10).font('Helvetica-Bold').text('TAX INVOICE / DELIVERY CHALLAN', 330, 27, { width: 230, align: 'right' });
     doc.fillColor('#94A3B8').fontSize(7.5).font('Helvetica').text('Original Copy for Consignee', 330, 41, { width: 230, align: 'right' });
@@ -489,7 +489,7 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.text('3. This is an official computer-generated Delivery Challan document.', 35, footerY + 38, { width: 330 });
 
     doc.rect(385, footerY, 185, 48).stroke(borderCol);
-    doc.fillColor(mutedText).fontSize(7).font('Helvetica').text('For NEXUS WHOLESALE & DISTRIBUTION', 390, footerY + 6, { align: 'center', width: 175 });
+    doc.fillColor(mutedText).fontSize(7).font('Helvetica').text('For APEX WHOLESALE & DISTRIBUTION', 390, footerY + 6, { align: 'center', width: 175 });
 
     doc.strokeColor(accentIndigo).lineWidth(0.8).dash(3, { space: 2 }).moveTo(405, footerY + 30).lineTo(550, footerY + 30).stroke();
     doc.undash();
@@ -499,7 +499,7 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     // Bottom Footer Reference Line
     let bottomBarY = footerY + 54;
     doc.fontSize(7).font('Helvetica').fillColor('#94A3B8').text(
-      `Nexus ERP & CRM Operations Portal | Invoice Reference: ${challan.challanNumber}`,
+      `Apex ERP & CRM Operations Portal | Invoice Reference: ${challan.challanNumber}`,
       25,
       bottomBarY,
       { align: 'center', width: 545 }
