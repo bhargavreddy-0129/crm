@@ -1,0 +1,15 @@
+{
+  "name": "mini-erp-crm-root",
+  "version": "1.0.0",
+  "description": "Mini ERP + CRM Operations Portal Root Project",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "docker:up": "docker-compose up --build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

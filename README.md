@@ -1,0 +1,110 @@
+# Mini ERP + CRM Operations Portal
+
+A modern, full-stack Mini ERP and CRM Operations Portal designed for wholesale and distribution companies. This system manages customer leads, inventory levels, low-stock alerts, stock movement logs, and automated sales challan dispatches with atomic stock reduction and PDF invoice generation.
+
+---
+
+## ⚡ How to Run Both Frontend & Backend at the Same Time
+
+### Method 1: Single Command from Root (Recommended)
+We have configured `concurrently` in the root folder so you can start both servers simultaneously with a single command:
+
+```bash
+# Open terminal in the project root directory
+npm install
+npm run dev
+```
+- **Backend API**: Listening at `http://localhost:5000`
+- **Frontend App**: Listening at `http://localhost:3000`
+
+---
+
+### Method 2: Two Separate Terminal Windows
+
+**Terminal 1 (Backend API)**:
+```bash
+cd backend
+npm run dev
+```
+
+**Terminal 2 (Frontend App)**:
+```bash
+cd frontend
+npm run dev
+```
+
+---
+
+### Method 3: Using Docker Compose
+Run the entire containerized stack including PostgreSQL DB, Express API, and React frontend:
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## 🔑 Test Login Credentials
+
+| Role | Email | Password | Allowed Actions |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@company.com` | `Password123` | Full system access across all modules |
+| **Sales** | `sales@company.com` | `Password123` | Manage Customers, Follow-ups, Create Sales Challans |
+| **Warehouse** | `warehouse@company.com` | `Password123` | Manage Products, Adjust Stock (IN/OUT), View Audit Logs |
+| **Accounts** | `accounts@company.com` | `Password123` | View Dashboard, Sales Challans, Export PDF Invoices |
+
+*Note: All 4 roles are pre-seeded in the database and can be selected via 1-click buttons on the login screen.*
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: Node.js, Express.js, TypeScript, Prisma ORM, SQLite / PostgreSQL, PDFKit, JWT, Zod validation.
+- **Frontend**: React 18, Vite, TypeScript, Lucide Icons, Custom Premium Glassmorphic CSS Design System.
+- **DevOps**: Docker, Docker Compose, GitHub Actions.
+
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`backend/.env`)
+```env
+PORT=5000
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="super-secret-jwt-key-mini-erp-crm-2026"
+JWT_EXPIRES_IN="7d"
+NODE_ENV="development"
+```
+
+---
+
+## 🌐 Deployment Instructions
+
+### Option 1: Frontend on Vercel / Netlify & Backend on Render
+1. **Database**: Create a free PostgreSQL database on [Supabase](https://supabase.com) or [Neon](https://neon.tech).
+2. **Backend (Render)**:
+   - Connect your GitHub repository to Render.
+   - Set Build Command: `cd backend && npm install && npx prisma generate && npm run build`
+   - Set Start Command: `cd backend && npm start`
+   - Add Environment Variable `DATABASE_URL` pointing to your PostgreSQL instance.
+3. **Frontend (Vercel)**:
+   - Import the `frontend` folder into Vercel.
+   - Set Framework Preset: `Vite`.
+
+### Option 2: Full-Stack Container on AWS (EC2 / ECS / Lightsail)
+Deploy using `docker-compose up --build`.
+
+---
+
+## 📁 Repository Structure
+
+```
+├── backend/                  # Express + TypeScript + Prisma API
+├── frontend/                 # React + Vite + TypeScript UI
+├── .github/workflows/ci.yml   # GitHub Actions CI workflow
+├── Dockerfile                 # Multi-stage Docker build
+├── docker-compose.yml         # Container orchestration
+├── crm-api.postman_collection.json # Exported Postman API collection
+├── package.json               # Root scripts & concurrently setup
+└── README.md
+```

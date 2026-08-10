@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "a89d1234-5678-4abc-9def-123456789abc",
+		"name": "Mini ERP + CRM API Collection",
+		"description": "Postman Collection for testing Mini ERP + CRM Operations Portal REST APIs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login (Admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('authToken', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@company.com\",\n  \"password\": \"Password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login (Sales)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"sales@company.com\",\n  \"password\": \"Password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer CRM",
+			"item": [
+				{
+					"name": "Get Customers (Paginated & Filtered)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/customers?page=1&limit=10&status=Active",
+							"host": ["{{baseUrl}}"],
+							"path": ["customers"],
+							"query": [
+								{ "key": "page", "value": "1" },
+								{ "key": "limit", "value": "10" },
+								{ "key": "status", "value": "Active" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sanjay Kapoor\",\n  \"mobile\": \"+919876543999\",\n  \"email\": \"sanjay@kapoortraders.com\",\n  \"businessName\": \"Kapoor Global Logistics\",\n  \"gstNumber\": \"27KKKLL9999K1Z4\",\n  \"customerType\": \"Distributor\",\n  \"address\": \"Sector 18, Gurugram, Haryana\",\n  \"status\": \"Lead\",\n  \"notes\": \"Key prospect for logistics distribution partnership.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": ["{{baseUrl}}"],
+							"path": ["customers"]
+						}
+					}
+				},
+				{
+					"name": "Add Follow-Up Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"note\": \"Discussed credit terms and pricing discount structure for Q4.\",\n  \"followUpDate\": \"2026-08-20\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:id/followups",
+							"host": ["{{baseUrl}}"],
+							"path": ["customers", ":id", "followups"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Products & Inventory",
+			"item": [
+				{
+					"name": "Get Products (With Low Stock Filter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products?lowStock=false",
+							"host": ["{{baseUrl}}"],
+							"path": ["products"]
+						}
+					}
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"4K Ultra HD Webcam\",\n  \"sku\": \"PRD-CAM-005\",\n  \"category\": \"Electronics\",\n  \"unitPrice\": 5499.00,\n  \"currentStock\": 25,\n  \"minStockAlert\": 5,\n  \"location\": \"Warehouse A - Shelf 1C\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": ["{{baseUrl}}"],
+							"path": ["products"]
+						}
+					}
+				},
+				{
+					"name": "Adjust Stock (IN/OUT)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"changeQty\": 10,\n  \"movementType\": \"IN\",\n  \"reason\": \"Received vendor shipment restock\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products/:id/adjust-stock",
+							"host": ["{{baseUrl}}"],
+							"path": ["products", ":id", "adjust-stock"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Sales Challans",
+			"item": [
+				{
+					"name": "Get All Challans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/challans",
+							"host": ["{{baseUrl}}"],
+							"path": ["challans"]
+						}
+					}
+				},
+				{
+					"name": "Create Challan (Draft or Confirmed)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"replace-with-customer-id\",\n  \"status\": \"Confirmed\",\n  \"items\": [\n    {\n      \"productId\": \"replace-with-product-id\",\n      \"quantity\": 2\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/challans",
+							"host": ["{{baseUrl}}"],
+							"path": ["challans"]
+						}
+					}
+				},
+				{
+					"name": "Download PDF Invoice",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/challans/:id/pdf",
+							"host": ["{{baseUrl}}"],
+							"path": ["challans", ":id", "pdf"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
