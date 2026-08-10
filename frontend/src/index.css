@@ -245,7 +245,7 @@ body {
 
 .topbar {
   height: var(--header-height);
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   border-bottom: 1px solid var(--border-color);
   padding: 0 32px;
@@ -393,7 +393,7 @@ select.filter-select {
 }
 
 .data-table th {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-card-hover);
   padding: 16px 24px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -511,7 +511,7 @@ select.filter-select {
 }
 
 .modal-card {
-  background: #1e293b;
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   width: 100%;

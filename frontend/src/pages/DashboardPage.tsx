@@ -299,8 +299,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 <div
                   key={c.id}
                   style={{
-                    background: 'rgba(15, 23, 42, 0.5)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '10px',
                     padding: '12px 16px',
                     display: 'flex',
@@ -309,14 +309,14 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                   }}
                 >
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#f8fafc' }}>{c.challanNumber}</div>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{c.challanNumber}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                       {c.customer?.businessName || c.customer?.name} • {c.totalQty} items
                     </div>
                   </div>
                   <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div>
-                      <div style={{ fontWeight: 700, color: '#34d399', fontSize: '0.9rem' }}>
+                      <div style={{ fontWeight: 700, color: '#10b981', fontSize: '0.9rem' }}>
                         ₹{c.totalAmount.toLocaleString()}
                       </div>
                       <span className={`badge badge-${c.status.toLowerCase()}`}>{c.status}</span>
@@ -352,26 +352,26 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {recentFollowUps.length === 0 ? (
-                <div style={{ color: '#64748b', fontSize: '0.88rem' }}>No recent follow-ups logged.</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>No recent follow-ups logged.</div>
               ) : (
                 recentFollowUps.map((f) => (
                   <div
                     key={f.id}
                     style={{
-                      background: 'rgba(15, 23, 42, 0.5)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      background: 'var(--bg-input)',
+                      border: '1px solid var(--border-color)',
                       borderRadius: '10px',
                       padding: '12px 16px',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <strong style={{ fontSize: '0.88rem', color: '#60a5fa' }}>{f.customer?.businessName}</strong>
-                      <span style={{ fontSize: '0.72rem', color: '#64748b' }}>
+                      <strong style={{ fontSize: '0.88rem', color: '#6366f1' }}>{f.customer?.businessName}</strong>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                         {new Date(f.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.84rem', color: '#cbd5e1' }}>{f.note}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '4px' }}>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--text-primary)' }}>{f.note}</div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
                       By {f.user?.name} ({f.user?.role})
                     </div>
                   </div>
