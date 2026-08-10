@@ -255,21 +255,21 @@ export const CustomersPage: React.FC = () => {
               customers.map((c) => (
                 <tr key={c.id}>
                   <td>
-                    <div style={{ fontWeight: 700, color: '#f8fafc' }}>{c.name}</div>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{c.name}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                       <Building size={12} /> {c.businessName}
                     </div>
                   </td>
                   <td>
-                    <div style={{ fontSize: '0.84rem', color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                       <Phone size={12} style={{ color: '#6366f1' }} /> {c.mobile}
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                       <Mail size={12} /> {c.email}
                     </div>
                   </td>
                   <td>
-                    <span style={{ fontSize: '0.85rem', color: '#e2e8f0' }}>{c.customerType}</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{c.customerType}</span>
                   </td>
                   <td>
                     <span className={`badge badge-${c.status.toLowerCase()}`}>{c.status}</span>

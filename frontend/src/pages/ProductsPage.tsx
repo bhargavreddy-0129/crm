@@ -270,28 +270,28 @@ export const ProductsPage: React.FC = () => {
                           </div>
                         )}
                         <div>
-                          <div style={{ fontWeight: 700, color: '#f8fafc' }}>{p.name}</div>
+                          <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{p.name}</div>
                           {isLowStock && <span className="low-stock-pill">LOW STOCK WARNING</span>}
                         </div>
                       </div>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.85rem', color: '#94a3b8', fontFamily: 'monospace' }}>{p.sku}</span>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{p.sku}</span>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>{p.category}</span>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{p.category}</span>
                     </td>
                     <td>
-                      <span style={{ fontWeight: 700, color: '#34d399' }}>₹{p.unitPrice.toLocaleString()}</span>
+                      <span style={{ fontWeight: 700, color: '#10b981' }}>₹{p.unitPrice.toLocaleString()}</span>
                     </td>
                     <td>
-                      <div style={{ fontWeight: 700, color: isLowStock ? '#ef4444' : '#f8fafc' }}>
+                      <div style={{ fontWeight: 700, color: isLowStock ? '#ef4444' : 'var(--text-primary)' }}>
                         {p.currentStock} units
                       </div>
-                      <div style={{ fontSize: '0.72rem', color: '#64748b' }}>Min Alert: {p.minStockAlert}</div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Min Alert: {p.minStockAlert}</div>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.82rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <MapPin size={13} /> {p.location}
                       </span>
                     </td>
