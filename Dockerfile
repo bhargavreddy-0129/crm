@@ -34,4 +34,4 @@ COPY --from=frontend-builder /app/frontend/dist ./frontend-dist
 
 EXPOSE 5000
 
-CMD ["node", "backend/dist/server.js"]
+CMD ["sh", "-c", "cd backend && npx prisma db push --accept-data-loss && npx ts-node prisma/seed.ts && node dist/server.js"]

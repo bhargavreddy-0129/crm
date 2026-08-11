@@ -51,9 +51,12 @@ export async function login(req: AuthenticatedRequest, res: Response) {
         role: user.role,
       },
     });
-  } catch (error) {
-    console.error('Login error:', error);
-    return res.status(500).json({ success: false, message: 'Server error during login' });
+  } catch (error: any) {
+    console.error('Login error details:', error);
+    return res.status(500).json({
+      success: false,
+      message: error?.message || 'Server error during login',
+    });
   }
 }
 
