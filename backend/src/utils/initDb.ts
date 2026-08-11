@@ -18,7 +18,14 @@ export async function autoInitDatabase() {
     } catch (tableErr) {
       console.log('⚠️ Database tables missing. Pushing Prisma schema to PostgreSQL...');
       try {
-        execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+        const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+        execSync('npx prisma db push --accept-data-loss', {
+          stdio: 'inherit',
+          env: {
+            ...process.env,
+            ...(dbUrl && { DATABASE_URL: dbUrl.trim() }),
+          },
+        });
         console.log('✅ Prisma schema pushed successfully.');
       } catch (pushErr) {
         console.error('❌ Prisma db push error:', pushErr);
