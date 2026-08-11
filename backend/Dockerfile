@@ -41,5 +41,5 @@ COPY --from=builder /app/prisma ./prisma
 # Railway overrides process.env.PORT dynamically at runtime
 EXPOSE 5000
 
-# Sync database schema and seed if needed, then start server
-CMD ["sh", "-c", "npx prisma db push --accept-data-loss && npx ts-node prisma/seed.ts && node dist/server.js"]
+# Start compiled server (autoInitDatabase runs on server listen)
+CMD ["node", "dist/server.js"]

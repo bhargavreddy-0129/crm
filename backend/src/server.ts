@@ -61,9 +61,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+import { autoInitDatabase } from './utils/initDb';
+
 // Central Error Handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+  autoInitDatabase();
 });
