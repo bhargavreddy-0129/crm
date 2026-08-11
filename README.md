@@ -4,6 +4,35 @@ A modern, full-stack Mini ERP and CRM Operations Portal designed for wholesale a
 
 ---
 
+## 🚀 Live Deployment
+
+The application is deployed and live in production:
+
+### Frontend
+[https://superb-banoffee-22d6bf.netlify.app](https://superb-banoffee-22d6bf.netlify.app)
+
+### Backend API
+[https://crm-production-6571.up.railway.app](https://crm-production-6571.up.railway.app)
+
+- **Frontend**: Deployed on **Netlify** (React 18 + Vite + TypeScript).
+- **Backend**: REST API deployed on **Railway** (Node.js + Express + TypeScript + Prisma ORM).
+- **Database**: Cloud-hosted PostgreSQL on **Neon**.
+- **Communication**: The Netlify frontend communicates directly with the Railway backend REST API with CORS security.
+
+---
+
+## 🏗️ Deployment Architecture
+
+```
+Frontend (Netlify)
+        ↓
+Backend REST API (Railway)
+        ↓
+PostgreSQL Database (Neon)
+```
+
+---
+
 ## ⚡ How to Run Both Frontend & Backend at the Same Time
 
 ### Method 1: Single Command from Root (Recommended)
@@ -59,9 +88,9 @@ docker-compose up --build
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Node.js, Express.js, TypeScript, Prisma ORM, SQLite / PostgreSQL, PDFKit, JWT, Zod validation.
+- **Backend**: Node.js, Express.js, TypeScript, Prisma ORM, PostgreSQL (Neon), PDFKit, JWT, Zod validation.
 - **Frontend**: React 18, Vite, TypeScript, Lucide Icons, Custom Premium Glassmorphic CSS Design System.
-- **DevOps**: Docker, Docker Compose, GitHub Actions.
+- **DevOps**: Docker, Docker Compose, GitHub Actions, Netlify, Railway.
 
 ---
 
@@ -70,28 +99,29 @@ docker-compose up --build
 ### Backend (`backend/.env`)
 ```env
 PORT=5000
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require"
 JWT_SECRET="super-secret-jwt-key-mini-erp-crm-2026"
 JWT_EXPIRES_IN="7d"
 NODE_ENV="development"
+FRONTEND_URL="http://localhost:3000"
 ```
 
 ---
 
 ## 🌐 Deployment Instructions
 
-### Option 1: Frontend on Vercel / Netlify & Backend on Render
-1. **Database**: Create a free PostgreSQL database on [Supabase](https://supabase.com) or [Neon](https://neon.tech).
-2. **Backend (Render)**:
-   - Connect your GitHub repository to Render.
-   - Set Build Command: `cd backend && npm install && npx prisma generate && npm run build`
-   - Set Start Command: `cd backend && npm start`
-   - Add Environment Variable `DATABASE_URL` pointing to your PostgreSQL instance.
-3. **Frontend (Vercel)**:
-   - Import the `frontend` folder into Vercel.
-   - Set Framework Preset: `Vite`.
+### Option 1: Frontend on Netlify & Backend on Railway (Current Production Setup)
+1. **Database (Neon)**: Create a PostgreSQL database on [Neon](https://neon.tech).
+2. **Backend (Railway)**:
+   - Connect your GitHub repository to Railway.
+   - Set Environment Variables: `DATABASE_URL`, `JWT_SECRET`, `FRONTEND_URL`.
+   - Dockerfile automatically builds and runs the containerized Express server.
+3. **Frontend (Netlify)**:
+   - Connect your GitHub repository to Netlify.
+   - Set Build Command: `cd frontend && npm install && npm run build`.
+   - Set Environment Variable: `VITE_API_URL=https://crm-production-6571.up.railway.app`.
 
-### Option 2: Full-Stack Container on AWS (EC2 / ECS / Lightsail)
+### Option 2: Full-Stack Container on AWS / Local Docker
 Deploy using `docker-compose up --build`.
 
 ---
