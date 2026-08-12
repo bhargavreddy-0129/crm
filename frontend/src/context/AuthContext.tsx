@@ -23,7 +23,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Clear legacy localStorage token if present
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 

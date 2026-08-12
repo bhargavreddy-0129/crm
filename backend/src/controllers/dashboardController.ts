@@ -44,10 +44,7 @@ export async function getDashboardStats(req: AuthenticatedRequest, res: Response
       }),
     ]);
 
-    // Count low stock products
     const lowStockCount = allProducts.filter((p) => p.currentStock <= p.minStockAlert).length;
-
-    // Calculate confirmed revenue
     const totalRevenue = confirmedChallans.reduce((sum, c) => sum + c.totalAmount, 0);
 
     return res.json({

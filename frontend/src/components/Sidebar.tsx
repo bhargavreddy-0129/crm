@@ -19,7 +19,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, setCurrentTab }) =
     { id: 'stock-logs', label: 'Stock Audit Log', icon: ClipboardList, roles: ['ADMIN', 'WAREHOUSE'] as UserRole[] },
   ];
 
-  // Filter menu options strictly based on logged-in user role
   const userNavItems = user
     ? allNavItems.filter((item) => item.roles.includes(user.role))
     : allNavItems;

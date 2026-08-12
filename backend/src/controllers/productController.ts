@@ -129,7 +129,6 @@ export async function createProduct(req: AuthenticatedRequest, res: Response) {
 
     const data = parseResult.data;
 
-    // Check SKU unique
     const existingSku = await prisma.product.findUnique({ where: { sku: data.sku } });
     if (existingSku) {
       return res.status(400).json({ success: false, message: `SKU '${data.sku}' already exists` });

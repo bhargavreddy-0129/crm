@@ -138,7 +138,6 @@ export const StockLogsPage: React.FC = () => {
           </tbody>
         </table>
 
-        {/* Pagination Footer */}
         <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
           <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
             Page {page} of {totalPages}

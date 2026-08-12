@@ -15,18 +15,15 @@ export const CustomersPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Modal States
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
-  // Selected Customer for detail/edit
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [customerFollowUps, setCustomerFollowUps] = useState<FollowUp[]>([]);
   const [newFollowUpNote, setNewFollowUpNote] = useState('');
   const [newFollowUpDate, setNewFollowUpDate] = useState('');
 
-  // Form State for Add / Edit
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
@@ -179,7 +176,6 @@ export const CustomersPage: React.FC = () => {
 
   return (
     <div>
-      {/* Table Toolbar */}
       <div className="table-container" style={{ marginBottom: '24px' }}>
         <div className="table-toolbar">
           <div className="search-input-wrapper">
@@ -226,7 +222,6 @@ export const CustomersPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Customer Table */}
         <table className="data-table">
           <thead>
             <tr>
@@ -301,7 +296,6 @@ export const CustomersPage: React.FC = () => {
           </tbody>
         </table>
 
-        {/* Pagination Footer */}
         <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
           <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
             Page {page} of {totalPages}
@@ -317,7 +311,6 @@ export const CustomersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Add Customer Modal */}
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Add New Customer">
         {formError && (
           <div className="alert-toast alert-toast-error">
@@ -451,7 +444,6 @@ export const CustomersPage: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Edit Customer Modal */}
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Customer">
         {formError && (
           <div className="alert-toast alert-toast-error">
@@ -575,11 +567,9 @@ export const CustomersPage: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Customer Detail Drawer Modal */}
       <Modal isOpen={isDetailModalOpen} onClose={() => setIsDetailModalOpen(false)} title="Customer Details & CRM History">
         {selectedCustomer && (
           <div>
-            {/* Summary Box */}
             <div
               style={{
                 background: 'rgba(15, 23, 42, 0.6)',
@@ -604,7 +594,6 @@ export const CustomersPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Follow-up Notes Timeline */}
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <MessageSquare size={16} style={{ color: '#6366f1' }} /> CRM Follow-Up Notes Timeline
             </h4>

@@ -4,14 +4,12 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Check if seed data already exists
   const existingUserCount = await prisma.user.count();
   if (existingUserCount > 0) {
     console.log('✅ Database already populated with users. Skipping seed.');
     return;
   }
 
-  // 1. Clean existing records
   await prisma.challanItem.deleteMany();
   await prisma.challan.deleteMany();
   await prisma.stockLog.deleteMany();
@@ -20,7 +18,6 @@ async function main() {
   await prisma.product.deleteMany();
   await prisma.user.deleteMany();
 
-  // 2. Create Users for all 4 roles
   const passwordHash = await bcrypt.hash('Password123', 10);
 
   const admin = await prisma.user.create({
@@ -61,7 +58,6 @@ async function main() {
 
   console.log('✅ Created 4 Role Users (Admin, Sales, Warehouse, Accounts)');
 
-  // 3. Create Sample Customers
   const customer1 = await prisma.customer.create({
     data: {
       name: 'Rajesh Kumar',
@@ -72,7 +68,7 @@ async function main() {
       customerType: 'Distributor',
       address: '104 Industrial Area Phase 2, Mumbai, Maharashtra 400093',
       status: 'Active',
-      followUpDate: new Date(Date.now() + 86400000 * 3), // 3 days from now
+      followUpDate: new Date(Date.now() + 86400000 * 3),
       notes: 'Key distributor for West region. Prefers bulk delivery on Mondays.',
     },
   });
@@ -87,7 +83,7 @@ async function main() {
       customerType: 'Retail',
       address: 'Shop 12, Main Market, Connaught Place, New Delhi 110001',
       status: 'Lead',
-      followUpDate: new Date(Date.now() + 86400000 * 1), // Tomorrow
+      followUpDate: new Date(Date.now() + 86400000 * 1),
       notes: 'Interested in electronic accessories range. Sent product catalog.',
     },
   });
@@ -109,7 +105,6 @@ async function main() {
 
   console.log('✅ Created sample customers');
 
-  // Add follow-up notes for customer 1
   await prisma.followUp.create({
     data: {
       customerId: customer1.id,
@@ -126,7 +121,6 @@ async function main() {
     },
   });
 
-  // 4. Create Sample Products
   const prod1 = await prisma.product.create({
     data: {
       name: 'Wireless Ergonomic Mouse X200',
@@ -146,7 +140,7 @@ async function main() {
       sku: 'PRD-KEYB-002',
       category: 'Electronics',
       unitPrice: 3499.0,
-      currentStock: 3, // Low stock alert!
+      currentStock: 3,
       minStockAlert: 10,
       location: 'Warehouse A - Shelf 2A',
       imageUrl: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400',
@@ -181,7 +175,6 @@ async function main() {
 
   console.log('✅ Created sample products');
 
-  // Initial Stock Logs
   await prisma.stockLog.createMany({
     data: [
       {
@@ -208,7 +201,6 @@ async function main() {
     ],
   });
 
-  // 5. Create Sample Sales Challans
   const challan1 = await prisma.challan.create({
     data: {
       challanNumber: 'CHN-2026-0001',
@@ -232,7 +224,6 @@ async function main() {
     },
   });
 
-  // Stock deduction log for confirmed challan
   await prisma.stockLog.create({
     data: {
       productId: prod1.id,

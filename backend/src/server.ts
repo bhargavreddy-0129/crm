@@ -10,11 +10,11 @@ import stockRoutes from './routes/stockRoutes';
 import challanRoutes from './routes/challanRoutes';
 import dashboardRoutes from './routes/dashboardRoutes';
 import { errorHandler } from './middleware/errorHandler';
+import { autoInitDatabase } from './utils/initDb';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middlewares
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://superb-banoffee-22d6bf.netlify.app',
@@ -44,7 +44,6 @@ app.use(
 );
 app.use(express.json());
 
-// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/products', productRoutes);
@@ -52,7 +51,6 @@ app.use('/api/stock', stockRoutes);
 app.use('/api/challans', challanRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -61,9 +59,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-import { autoInitDatabase } from './utils/initDb';
-
-// Central Error Handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {

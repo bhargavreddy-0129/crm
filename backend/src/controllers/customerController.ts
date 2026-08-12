@@ -133,7 +133,6 @@ export async function createCustomer(req: AuthenticatedRequest, res: Response) {
       },
     });
 
-    // Automatically create initial follow-up note if notes provided
     if (data.notes && req.user) {
       await prisma.followUp.create({
         data: {
@@ -227,7 +226,6 @@ export async function addFollowUpNote(req: AuthenticatedRequest, res: Response) 
       },
     });
 
-    // Optionally update customer followUpDate
     if (followUpDate) {
       await prisma.customer.update({
         where: { id },

@@ -13,7 +13,7 @@ model User {
   email     String   @unique
   password  String
   name      String
-  role      String   // ADMIN, SALES, WAREHOUSE, ACCOUNTS
+  role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -29,9 +29,9 @@ model Customer {
   email        String
   businessName String
   gstNumber    String?
-  customerType String     // RETAIL, WHOLESALE, DISTRIBUTOR
+  customerType String
   address      String
-  status       String     @default("LEAD") // LEAD, ACTIVE, INACTIVE
+  status       String     @default("LEAD")
   followUpDate DateTime?
   notes        String?
   createdAt    DateTime   @default(now())
@@ -60,7 +60,7 @@ model Product {
   unitPrice     Float
   currentStock  Int      @default(0)
   minStockAlert Int      @default(5)
-  location      String   // Warehouse location / Aisle
+  location      String
   imageUrl      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -73,7 +73,7 @@ model StockLog {
   id           String   @id @default(uuid())
   productId    String
   changeQty    Int
-  movementType String   // IN, OUT
+  movementType String
   reason       String
   createdBy    String
   createdAt    DateTime @default(now())
@@ -88,7 +88,7 @@ model Challan {
   customerId    String
   totalQty      Int      @default(0)
   totalAmount   Float    @default(0)
-  status        String   @default("DRAFT") // DRAFT, CONFIRMED, CANCELLED
+  status        String   @default("DRAFT")
   createdBy     String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -102,9 +102,9 @@ model ChallanItem {
   id          String  @id @default(uuid())
   challanId   String
   productId   String
-  productName String  // Snapshot data
-  sku         String  // Snapshot data
-  unitPrice   Float   // Snapshot data
+  productName String
+  sku         String
+  unitPrice   Float
   quantity    Int
   subtotal    Float
 

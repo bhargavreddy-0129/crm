@@ -340,12 +340,9 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
       return res.status(404).json({ success: false, message: 'Challan not found' });
     }
 
-    // Dynamic Page Height Calculation based on number of items:
-    // Base layout height = 310pt, plus 24pt per line item, plus 110pt for totals and terms.
     const itemCount = Math.max(challan.items.length, 1);
     const calculatedPageHeight = Math.min(Math.max(340 + (itemCount * 24) + 110, 420), 841.89);
 
-    // Compact Page Dimension: Width: 595.28 (Standard Width), Height: calculatedPageHeight (Eliminating wasted white space!)
     const doc = new PDFDocument({ margin: 25, size: [595.28, calculatedPageHeight] });
 
     res.setHeader('Content-Type', 'application/pdf');
@@ -353,7 +350,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
 
     doc.pipe(res);
 
-    // Palette setup
     const primaryNavy = '#0F172A';
     const accentIndigo = '#4F46E5';
     const darkText = '#1E293B';
@@ -361,7 +357,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     const lightBg = '#F8FAFC';
     const borderCol = '#CBD5E1';
 
-    // Header banner
     doc.rect(25, 20, 545, 56).fill(primaryNavy);
     doc.rect(32, 28, 32, 32).fill(accentIndigo);
     doc.fillColor('#FFFFFF').fontSize(11).font('Helvetica-Bold').text('ERP', 38, 39);
@@ -373,7 +368,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.fillColor('#F59E0B').fontSize(10).font('Helvetica-Bold').text('TAX INVOICE / DELIVERY CHALLAN', 330, 27, { width: 230, align: 'right' });
     doc.fillColor('#94A3B8').fontSize(7.5).font('Helvetica').text('Original Copy for Consignee', 330, 41, { width: 230, align: 'right' });
 
-    // Metadata summary bar
     doc.rect(25, 81, 545, 35).fill(lightBg);
     doc.rect(25, 81, 545, 35).stroke(borderCol);
 
@@ -399,7 +393,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.rect(485, 96, 75, 14).fill(badgeBg);
     doc.fillColor('#FFFFFF').fontSize(7.5).font('Helvetica-Bold').text(statusText, 485, 99, { width: 75, align: 'center' });
 
-    // Customer & Shipping Info
     doc.rect(25, 121, 268, 70).fill('#FFFFFF');
     doc.rect(25, 121, 268, 70).stroke(borderCol);
     doc.rect(25, 121, 268, 15).fill('#E0E7FF');
@@ -422,7 +415,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.fillColor(accentIndigo).fontSize(8).font('Helvetica-Bold').text('DELIVERY & SHIPPING ADDRESS', 312, 125);
     doc.fillColor(darkText).fontSize(8).font('Helvetica').text(challan.customer.address, 312, 139, { width: 248, lineGap: 2 });
 
-    // Table Header
     let tableTop = 196;
     doc.rect(25, tableTop, 545, 20).fill('#334155');
     doc.fillColor('#FFFFFF').fontSize(8).font('Helvetica-Bold');
@@ -432,7 +424,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
     doc.text('QTY', 420, tableTop + 6, { width: 45, align: 'center' });
     doc.text('SUBTOTAL (INR)', 475, tableTop + 6, { width: 85, align: 'right' });
 
-    // Line Items
     let y = tableTop + 20;
     challan.items.forEach((item: any, index: number) => {
       const rowBg = index % 2 === 0 ? '#FFFFFF' : lightBg;
@@ -460,7 +451,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
       y += 24;
     });
 
-    // Summary Totals
     y += 8;
     doc.rect(25, y, 545, 45).fill(lightBg);
     doc.rect(25, y, 545, 45).stroke(borderCol);
@@ -479,7 +469,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
       y + 20
     );
 
-    // Terms & Footer
     let footerY = y + 51;
     doc.rect(25, footerY, 350, 48).stroke(borderCol);
     doc.fillColor(darkText).fontSize(8).font('Helvetica-Bold').text('DECLARATION & TERMS OF SALE:', 35, footerY + 6);
@@ -496,7 +485,6 @@ export async function downloadChallanPdf(req: AuthenticatedRequest, res: Respons
 
     doc.fillColor(darkText).fontSize(7.5).font('Helvetica-Bold').text('AUTHORIZED SIGNATORY', 390, footerY + 34, { align: 'center', width: 175 });
 
-    // Bottom Footer Reference Line
     let bottomBarY = footerY + 54;
     doc.fontSize(7).font('Helvetica').fillColor('#94A3B8').text(
       `Apex ERP & CRM Operations Portal | Invoice Reference: ${challan.challanNumber}`,

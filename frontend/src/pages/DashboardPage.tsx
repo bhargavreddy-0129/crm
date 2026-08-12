@@ -59,7 +59,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
   return (
     <div>
-      {/* ROLE 1: ADMIN PANEL DASHBOARD */}
       {role === 'ADMIN' && (
         <>
           <div className="card-grid">
@@ -133,7 +132,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </>
       )}
 
-      {/* ROLE 2: SALES PANEL DASHBOARD */}
       {role === 'SALES' && (
         <>
           <div className="card-grid">
@@ -179,7 +177,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </>
       )}
 
-      {/* ROLE 3: WAREHOUSE PANEL DASHBOARD */}
       {role === 'WAREHOUSE' && (
         <>
           <div className="card-grid">
@@ -240,7 +237,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </>
       )}
 
-      {/* ROLE 4: ACCOUNTS PANEL DASHBOARD */}
       {role === 'ACCOUNTS' && (
         <>
           <div className="card-grid">
@@ -277,9 +273,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </>
       )}
 
-      {/* Shared Activity & History Sections */}
       <div style={{ display: 'grid', gridTemplateColumns: role === 'ACCOUNTS' ? '1fr' : '1fr 1fr', gap: '24px' }}>
-        {/* Recent Challans / Invoices Table */}
         <div className="table-container" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -337,7 +331,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Recent CRM Follow-ups (Only for Admin, Sales, Warehouse) */}
         {role !== 'ACCOUNTS' && (
           <div className="table-container" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>

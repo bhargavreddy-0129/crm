@@ -15,14 +15,12 @@ export const ProductsPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Modals
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isAdjustModalOpen, setIsAdjustModalOpen] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Form State for Product Add/Edit
   const [formData, setFormData] = useState({
     name: '',
     sku: '',
@@ -34,7 +32,6 @@ export const ProductsPage: React.FC = () => {
     imageUrl: '',
   });
 
-  // Stock Adjust State
   const [adjustData, setAdjustData] = useState({
     changeQty: 1,
     movementType: 'IN' as 'IN' | 'OUT',
@@ -170,7 +167,6 @@ export const ProductsPage: React.FC = () => {
 
   return (
     <div>
-      {/* Table Toolbar */}
       <div className="table-container" style={{ marginBottom: '24px' }}>
         <div className="table-toolbar">
           <div className="search-input-wrapper">
@@ -214,7 +210,6 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Product Table */}
         <table className="data-table">
           <thead>
             <tr>
@@ -324,7 +319,6 @@ export const ProductsPage: React.FC = () => {
           </tbody>
         </table>
 
-        {/* Pagination Footer */}
         <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
           <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
             Page {page} of {totalPages}
@@ -340,7 +334,6 @@ export const ProductsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Add Product Modal */}
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Add New Product">
         {formError && (
           <div className="alert-toast alert-toast-error">
@@ -451,7 +444,6 @@ export const ProductsPage: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Edit Product Modal */}
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Product">
         {formError && (
           <div className="alert-toast alert-toast-error">
@@ -539,7 +531,6 @@ export const ProductsPage: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Adjust Stock Modal */}
       <Modal isOpen={isAdjustModalOpen} onClose={() => setIsAdjustModalOpen(false)} title="Adjust Inventory Stock">
         {selectedProduct && (
           <div>

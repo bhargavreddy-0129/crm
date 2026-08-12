@@ -14,7 +14,6 @@ const MainLayout: React.FC = () => {
   const { user, loading } = useAuth();
   const [currentTab, setCurrentTab] = useState('dashboard');
 
-  // Enforce role-based allowed tabs
   const roleAllowedTabs: Record<UserRole, string[]> = {
     ADMIN: ['dashboard', 'customers', 'products', 'challans', 'stock-logs'],
     SALES: ['dashboard', 'customers', 'challans'],

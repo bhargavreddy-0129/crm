@@ -22,12 +22,10 @@ export const ChallansPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Modals
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedChallan, setSelectedChallan] = useState<Challan | null>(null);
 
-  // Create Form State
   const [customerId, setCustomerId] = useState('');
   const [status, setStatus] = useState<'Draft' | 'Confirmed'>('Draft');
   const [items, setItems] = useState<ChallanItemInput[]>([{ productId: '', quantity: 1 }]);
@@ -189,7 +187,6 @@ export const ChallansPage: React.FC = () => {
 
   return (
     <div>
-      {/* Table Toolbar */}
       <div className="table-container" style={{ marginBottom: '24px' }}>
         <div className="table-toolbar">
           <div className="search-input-wrapper">
@@ -225,7 +222,6 @@ export const ChallansPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Challans Table */}
         <table className="data-table">
           <thead>
             <tr>
@@ -296,7 +292,6 @@ export const ChallansPage: React.FC = () => {
           </tbody>
         </table>
 
-        {/* Pagination Footer */}
         <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
           <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
             Page {page} of {totalPages}
@@ -312,7 +307,6 @@ export const ChallansPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Create Sales Challan Modal */}
       <Modal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} title="Create New Sales Challan">
         {formError && (
           <div className="alert-toast alert-toast-error" style={{ whiteSpace: 'pre-line' }}>
@@ -445,7 +439,6 @@ export const ChallansPage: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Challan Detail Modal */}
       <Modal isOpen={isDetailModalOpen} onClose={() => setIsDetailModalOpen(false)} title="Sales Challan Details">
         {selectedChallan && (
           <div>
@@ -473,7 +466,6 @@ export const ChallansPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Line Items */}
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '10px' }}>
               Snapshot Product Line Items
             </h4>
@@ -513,7 +505,6 @@ export const ChallansPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Status Transition Action Buttons */}
             {selectedChallan.status === 'Draft' && (
               <div style={{ background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '10px', padding: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontSize: '0.85rem', color: '#fbbf24' }}>

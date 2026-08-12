@@ -75,7 +75,6 @@ export const Topbar: React.FC<TopbarProps> = ({ title, subtitle }) => {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
@@ -98,7 +97,6 @@ export const Topbar: React.FC<TopbarProps> = ({ title, subtitle }) => {
           <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
 
-        {/* Date Display */}
         <div
           style={{
             display: 'flex',
